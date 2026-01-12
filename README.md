@@ -1,15 +1,22 @@
-Welcome to your new dbt project!
+# dbt + Snowflake Analytics Engineering Project
 
-### Using the starter project
+This project demonstrates an end-to-end analytics engineering workflow using **dbt** on **Snowflake**.
 
-Try running the following commands:
-- dbt run
-- dbt test
+## Overview
+- Source data: Snowflake TPCH sample dataset
+- Transformations: dbt (staging → marts)
+- Modeling approach: Fact and dimensional modeling (star schema)
+- Output: Analytics-ready marts with automated lineage and documentation
+
+## Key Concepts
+- dbt `source()` and `ref()` for dependency management
+- Modular SQL transformations
+- Auto-generated DAG and lineage
+- Reproducible analytics workflows
+
+## Tech Stack
+- Snowflake
+- dbt Core
+- SQL
 
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
