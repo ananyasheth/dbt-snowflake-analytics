@@ -2,11 +2,17 @@ version: 2
 
 models:
   - name: dim_customer
+    meta:
+      owner: "ananya" 
+      tier: "gold"
     columns:
       - name: customer_key
         tests: [not_null, unique]
 
   - name: fct_orders
+    meta:
+      owner: "ananya" 
+      tier: "gold"
     columns:
       - name: order_key
         tests: [not_null, unique]
