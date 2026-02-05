@@ -45,6 +45,32 @@ jobs:
       - name: Install dbt packages
         run: dbt deps
 
+      - name: Check Snowflake env vars are set (safe)
+        run: |
+          python - <<'PY'
+          import os
+          keys = [
+            "SNOWFLAKE_ACCOUNT","SNOWFLAKE_USER","SNOWFLAKE_PASSWORD",
+            "SNOWFLAKE_ROLE","SNOWFLAKE_WAREHOUSE","SNOWFLAKE_DATABASE","SNOWFLAKE_SCHEMA"
+          ]
+          for k in keys:
+            v = os.getenv(k)
+            if v is None or v == "":
+              print(f"❌ {k} is MISSING/EMPTY")
+            else:
+              # Don't print values; just print length
+              print(f"✅ {k} is set (len={len(v)})")
+          PY
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+
+
       - name: Run dbt (build models + run tests)
         run: dbt build --fail-fast
         env:
