@@ -26,7 +26,7 @@ jobs:
       - name: Create dbt login file (profiles.yml)
         run: |
           mkdir -p ~/.dbt
-          cat > ~/.dbt/profiles.yml << 'EOF'
+          cat > ~/.dbt/profiles.yml << EOF
           tpch_analytics:
             target: ci
             outputs:
