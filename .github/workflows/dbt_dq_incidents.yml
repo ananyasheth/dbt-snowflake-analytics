@@ -8,12 +8,9 @@ on:
 jobs:
   run-dbt:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: tpch_analytics
 
     steps:
-      - name: Get the code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -45,7 +42,7 @@ jobs:
                 threads: 4
           EOF
 
-      - name: Download dbt packages
+      - name: Install dbt packages
         run: dbt deps
 
       - name: Run dbt (build models + run tests)
@@ -59,7 +56,7 @@ jobs:
           SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
           SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
 
-      - name: Create/Update incident report issues
+      - name: Create/Update DQ incident issues
         if: always()
         run: python dq_incident_agent/incident_agent.py
         env:
