@@ -41,6 +41,10 @@ jobs:
                 schema: ${SNOWFLAKE_SCHEMA}
                 threads: 4
           EOF
+      - name: Verify profiles.yml (safe)
+        run: |
+          echo "---- ~/.dbt/profiles.yml (password redacted) ----"
+          sed -E 's/password: .*/password: ***REDACTED***/' ~/.dbt/profiles.yml
 
       - name: Install dbt packages
         run: dbt deps
